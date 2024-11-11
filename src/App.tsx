@@ -10,6 +10,8 @@ import { CHAIN } from "@tonconnect/protocol";
 import "@twa-dev/sdk";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { SubscriptionSuccess } from "./components/SubscriptionSuccess";
 
 const StyledApp = styled.div`
   background-color: #e8e8e8;
@@ -32,36 +34,52 @@ function App() {
   const { network } = useTonConnect();
 
   return (
-    <AuthProvider>
-      <StyledApp>
-        <AppContainer>
-          <FlexBoxCol>
-            <FlexBoxRow>
-              <TonConnectButton />
-              <Button>
-                {network
-                  ? network === CHAIN.MAINNET
-                    ? "mainnet"
-                    : "testnet"
-                  : "N/A"}
-              </Button>
-            </FlexBoxRow>
-            
-            {/* Public section */}
-            <Counter />
-            
-            {/* Protected sections */}
-            <ProtectedRoute>
-              <TonConnectButton />
-              <FlexBoxCol>
-                <TransferTon />
-                <Jetton />
-              </FlexBoxCol>
-            </ProtectedRoute>
-          </FlexBoxCol>
-        </AppContainer>
-      </StyledApp>
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <StyledApp>
+          <AppContainer>
+            <FlexBoxCol>
+              <FlexBoxRow>
+                <TonConnectButton />
+                <Button>
+                  {network
+                    ? network === CHAIN.MAINNET
+                      ? "mainnet"
+                      : "testnet"
+                    : "N/A"}
+                </Button>
+              </FlexBoxRow>
+              
+              <Routes>
+                <Route path="/" element={
+                  <>
+                    {/* Public section */}
+                    <Counter />
+                    
+                    {/* Protected sections */}
+                    <ProtectedRoute>
+                      <TonConnectButton />
+                      <FlexBoxCol>
+                        <TransferTon />
+                        <Jetton />
+                      </FlexBoxCol>
+                    </ProtectedRoute>
+                  </>
+                } />
+                <Route 
+                  path="/subscription-success" 
+                  element={
+                    <ProtectedRoute>
+                      <SubscriptionSuccess />
+                    </ProtectedRoute>
+                  } 
+                />
+              </Routes>
+            </FlexBoxCol>
+          </AppContainer>
+        </StyledApp>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

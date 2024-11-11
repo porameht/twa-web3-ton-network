@@ -1,50 +1,49 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Address, toNano } from "ton";
+import { Address, toNano, beginCell } from "ton";
 import { useTonConnect } from "../hooks/useTonConnect";
 import { Card, FlexBoxCol, FlexBoxRow, Button, Input } from "./styled/styled";
 
 export function TransferTon() {
   const { sender, connected } = useTonConnect();
+  const subscriptionAddress = "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c";
+  const monthlyFee = "30"; // 10 TON monthly subscription fee
+  const [transactionId, setTransactionId] = useState<string | null>(null);
 
-  const [tonAmount, setTonAmount] = useState("0.01");
-  const [tonRecipient, setTonRecipient] = useState(
-    "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c"
-  );
+  const handleSubscribe = async () => {
+    const result = await sender.send({
+      to: Address.parse(subscriptionAddress),
+      value: toNano(monthlyFee),
+    });
+
+    console.log(result);
+  };
 
   return (
     <Card>
       <FlexBoxCol>
-        <h3>Transfer TON</h3>
+        <h3>Subscribe with TON</h3>
         <FlexBoxRow>
-          <label>Amount </label>
-          <Input
-            style={{ marginRight: 8 }}
-            type="number"
-            value={tonAmount}
-            onChange={(e) => setTonAmount(e.target.value)}
-          ></Input>
+          <label>Monthly Subscription Fee: {monthlyFee} TON</label>
         </FlexBoxRow>
         <FlexBoxRow>
-          <label>To </label>
-          <Input
-            style={{ marginRight: 8 }}
-            value={tonRecipient}
-            onChange={(e) => setTonRecipient(e.target.value)}
-          ></Input>
+          <p style={{ fontSize: "14px", color: "#666" }}>
+            Subscribe to our premium features by paying {monthlyFee} TON monthly.
+            Your subscription will be automatically renewed every month.
+          </p>
         </FlexBoxRow>
         <Button
           disabled={!connected}
           style={{ marginTop: 18 }}
-          onClick={async () => {
-            sender.send({
-              to: Address.parse(tonRecipient),
-              value: toNano(tonAmount),
-            });
-          }}
+          onClick={handleSubscribe}
         >
-          Transfer
+          Subscribe Now
         </Button>
+        {/* {transactionId && (
+          <p style={{ marginTop: 8, fontSize: "14px" }}>
+            Transaction ID: {transactionId}
+          </p>
+        )} */}
       </FlexBoxCol>
     </Card>
   );
