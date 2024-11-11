@@ -27,43 +27,22 @@ const banner = `
 
 console.log(banner);
 
-let githubUsername, githubRepo, botUsername;
+let botUsername;
 
 (async () => {
-  try {
-    const file = fs.readFileSync(".git/config").toString();
-    const url = file.match(/url = (.*)/)[1];
-    console.log(url);
-    const params = url.match(/github.com[/:]([^/]*)\/(.*)\.git/);
-    githubUsername = params[1];
-    githubRepo = params[2];
-  } catch (e) {}
-
   const accessToken = await question("Enter your bot access token: ");
   if (!accessToken?.length > 0) exitError("Token is required");
 
-  const githubUsernameQ = await question(
-    `Enter your github username${
-      githubUsername ? ` (${githubUsername})` : ``
-    }: `
-  );
-  githubUsername = githubUsernameQ || githubUsername;
-  if (!githubUsername?.length > 0) exitError("Github username is required");
-
-  const githubRepoQ = await question(
-    `Enter your forked repo name${githubRepo ? ` (${githubRepo})` : ``}: `
-  );
-  githubRepo = githubRepoQ || githubRepo;
-  if (!githubRepo?.length > 0) exitError("Repo name is required");
+  const webappUrl = await question("Enter your webapp URL: ");
+  if (!webappUrl?.length > 0) exitError("Webapp URL is required");
 
   const getBot = await axios.get(
     `https://api.telegram.org/bot${accessToken}/getMe`
   ).catch(exitError);
 
   botUsername = getBot.data.result.username;
-  const url = `https://${githubUsername}.github.io/${githubRepo}`;
 
-  console.log(`\n\nSetting bot ${botUsername} webapp url to ${url}`);
+  console.log(`\n\nSetting bot ${botUsername} webapp url to ${webappUrl}`);
 
   const resp = await axios.post(
     `https://api.telegram.org/bot${accessToken}/setChatMenuButton`,
@@ -72,7 +51,7 @@ let githubUsername, githubRepo, botUsername;
         type: "web_app",
         text: "Launch Webapp",
         web_app: {
-          url: url,
+          url: webappUrl,
         },
       },
     }
