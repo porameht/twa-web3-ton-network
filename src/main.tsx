@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import { TonConnectUIProvider, THEME } from "@tonconnect/ui-react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
@@ -13,9 +13,11 @@ const queryClient = new QueryClient({
 });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <TonConnectUIProvider manifestUrl={manifestUrl}
+  <TonConnectUIProvider
+    manifestUrl={manifestUrl}
+    uiPreferences={{ theme: THEME.DARK }}
     actionsConfiguration={{
-      twaReturnUrl: `https://t.me/ads_mebook_bot`,
+      twaReturnUrl: `https://t.me/ads_mebook_bot/start`,
     }}
   >
     <QueryClientProvider client={queryClient}>
