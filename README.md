@@ -1,52 +1,71 @@
-# twa-template
+# TON Telegram Bot Marketing Management Platform
 
-> Starter template for a new TWA interacting with the TON blockchain
+A decentralized platform built on TON blockchain for managing Facebook marketing campaigns and Telegram bot operations through a unified Telegram Web App (TWA) interface.
 
-# Overview
+## Features
 
-The project is highly-opinionated, and there are many other alternate routes it could have taken. Some examples:
+### Wallet Integration
+- 🔐 Secure TON wallet connection via TonConnect
+- 🌐 Support for mainnet and testnet networks
+- 🛡️ Protected routes with wallet authentication
 
-- Supports Ton Connect 2 wallets
-- Uses vite with react (alternative to create-react-app)
-- Uses the `ton` npm package
+### Facebook Marketing Integration
+Configure your Facebook Marketing credentials:
+- App ID
+- App Secret
+- Access Token
+- Ad Account ID
 
-# Prerequesities
+### Telegram Bot Management
+Set up your Telegram bot:
+- Bot Token configuration
+- Group ID management
+- Automated bot setup
 
-- Node.js v16 (other versions may work, needs more testing)
-- A TON Connect compatible wallet (e.g. [Tonkeeper](https://tonkeeper.com/))
+### Subscription System
+- 💎 TON-based payment system
+- 📅 Monthly subscription management
+- ✅ Payment verification
 
-# What does this repo contain?
+## Getting Started
 
-- A react-based TWA-ready app, interacting with TON
-- Github actions set to deploy app to github pages
-- A script to connect a telegram bot to the deployed app
+### Prerequisites
+- Node.js
+- TON-compatible wallet (e.g., Tonkeeper)
+- Facebook Developer Account
+- Telegram Bot Token
 
-# How to use
+### Installation
 
-1. Create a template from this repo with the "Use this template" button
+1. Clone the repository:
+```bash
+git clone https://github.com/porament/twa-web3-ton-network.git
+```
 
-   1. Choose a name for your repo
-   2. `**IMPORTANT!!**` mark "Include all branches", otherwise github pages deployment will not work.
-      ![image](https://user-images.githubusercontent.com/5641469/191731317-14e742fd-accb-47d4-a794-fad01148a377.png)
+2. Install dependencies:
+```bash
+bun install
+```
 
-2. Clone this repo and run `yarn`
+3. Start the development server:
+```bash
+bun dev
+```
 
-3. Create a new bot with [botfather](https://t.me/botfather)
-   1. Type `/newbot`
-   2. Choose a name for your bot, e.g. `My Ton TWA`
-   3. Choose a username for your bot, e.g. `my_ton_twa_482765_bot`
-   4. Take note of the access token, e.g. `5712441624:AAHmiHvwrrju1F3h29rlVOZLRLnv-B8ZZZ`
-   5. Run `yarn configbot` to link your bot to the webapp
+### Usage
 
-# Development
+1. Open the Telegram app and scan the QR code to connect your wallet.
+2. Use the Telegram Web App to manage your Facebook marketing campaigns and Telegram bot operations.
 
-1. Run `npm run dev` and edit the code as needed
-2. On push to the `main` branch, the app will be automatically deployed via github actions.
+## License
 
-# Roadmap
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-- [ ] Jetton transfer support
+## Contributing
 
-# License
+We welcome contributions to improve the platform. Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to submit improvements and bug fixes.
 
-MIT
+
+---
+
+Thank you for using the Telegram Bot Marketing Management Platform!
